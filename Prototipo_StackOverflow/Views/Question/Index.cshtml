@@ -1,0 +1,25 @@
+﻿@{
+    ViewData["Title"] = "Home Page";
+}
+
+<br />
+<div class="row">
+    <div class="col-12">
+        <h4>Faça uma pergunta pública</h4>
+    </div>
+    <div class="col-12">
+        <br />
+        <form>
+            <div class="form-group">
+                <label for="inputTitulo">Título</label>
+                <input type="text" class="form-control" id="inputTitulo" 
+                       placeholder="Qual sua pergunta de programação? Seja específico.">
+            </div>
+            <div class="form-group">
+                <label for="inputCorpo">Corpo</label>
+                <textarea class="form-control" id="inputCorpo" rows="15"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">Enviar</button>
+        </form>
+    </div>
+</div>
