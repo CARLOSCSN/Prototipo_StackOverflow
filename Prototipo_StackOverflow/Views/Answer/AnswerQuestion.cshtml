@@ -1,5 +1,7 @@
-﻿@{
-    ViewData["Title"] = "Pergunta";
+﻿@model QuestionModel
+
+@{
+    ViewData["Title"] = "Resposta";
 }
 
 <div class="row">
@@ -8,26 +10,32 @@
 <br />
 <div class="row">
     <div class="col-12">
-        <h4>Faça uma pergunta pública</h4>
+        <h4>Responda a pergunta - @Model.Title</h4>
     </div>
     <div class="col-12">
         <br />
-        <form name="QuestionForm">
+        <form name="AnswerForm">
             <div class="form-group">
-                <label for="inputTitulo">Título</label>
-                <input type="text" class="form-control" id="inputTitulo"
-                       placeholder="Qual sua pergunta de programação? Seja específico." 
-                       name="Title"
+                <label for="inputTituloResposta">Título</label>
+                <input type="text" class="form-control"
+                       id="inputTituloResposta"
+                       name="Answers[0].Title"
+                       placeholder="Título da resposta"
                        required>
             </div>
             <div class="form-group">
-                <label for="inputCorpo">Corpo</label>
-                <textarea class="form-control"  rows="15" 
-                          id="inputCorpo" 
-                          name="Body"
+                <label for="inputCorpoResposta">Corpo</label>
+                <textarea class="form-control" rows="15"
+                          id="inputCorpoResposta"
+                          name="Answers[0].Body"
                           required></textarea>
             </div>
-            <button type="submit" class="btn btn-primary">Enviar Pergunta</button>
+
+            <input type="hidden" name="Title" value="@Model.Title" />
+            <input type="hidden" name="Body" value="@Model.Body" />
+            <input type="hidden" name="Id" value="@Model.Id" />
+
+            <button type="submit" class="btn btn-primary">Enviar Resposta</button>
         </form>
     </div>
 </div>
@@ -35,12 +43,12 @@
 <script>
     $(document).ready(function () {
 
-        $('[name="QuestionForm"]').on('submit', function (e) {
+        $('[name="AnswerForm"]').on('submit', function (e) {
             e.preventDefault();
             $.ajax({
-                url: "/Question/CreateQuestion",
+                url: "/Answer/CreateAnswer",
                 type: "post",
-                data: $('[name="QuestionForm"]').serialize(),
+                data: $('[name="AnswerForm"]').serialize(),
                 dataType: 'json',
                 contentType: "application/x-www-form-urlencoded",
                 success: function (response) {
@@ -51,8 +59,8 @@
                         response.redirectToUrl = response.redirectToUrl.replace('%26', '&');
                         response.redirectToUrl = response.redirectToUrl.replace('%3D', '=');
                         //console.log(response);
-                        localStorage.removeItem('alert-question-success');
-                        localStorage.setItem('alert-question-success', 'A Pergunta foi enviada.');
+                        localStorage.removeItem('alert-answer-success');
+                        localStorage.setItem('alert-answer-success', 'A Resposta foi enviada.');
                         window.location.href = response.redirectToUrl;
                     }, 200);
                 },

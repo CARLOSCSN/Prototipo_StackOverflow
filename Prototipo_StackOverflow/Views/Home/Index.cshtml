@@ -1,6 +1,14 @@
-﻿@{
-    ViewData["Title"] = "Home Page";
+﻿@model List<QuestionModel>
+
+@{
+    ViewData["Title"] = "Pagina Inicial";
 }
+
+<style>
+    .card-body {
+        padding: 8px !important;
+    }
+</style>
 
 <br />
 <div class="row">
@@ -13,3 +21,39 @@
         </div>
     </div>
 </div>
+<br />
+@if (Model != null)
+{
+    foreach (var question in Model.OrderByDescending(x => x.Date))
+    {
+        <div class="row" style="margin-bottom: 3px !important;">
+            <div class="card" style="width: 100%">
+                <div class="card-body">
+                    <h5 class="card-title">
+                        <a asp-area="" asp-controller="Question" asp-action="GetById" asp-route-id="@question.Id" class="card-link">@question.Title</a>
+                    </h5>
+                    <h6 class="card-subtitle mb-2 text-muted text-right">@question.Date.ToString("dd/MM/yyyy")</h6>
+                </div>
+            </div>
+        </div>
+    }
+}
+else
+{
+    <br /><br /><br />
+    <h5 class="text-center">Nenhuma pergunta foi realizada.</h5>
+}
+
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            let storageSuccessAlert = localStorage.getItem('alert-question-success');
+            if (storageSuccessAlert != undefined && storageSuccessAlert != null && storageSuccessAlert != '') {
+                toastr["success"](storageSuccessAlert, "Sucesso");
+            }
+            localStorage.removeItem('alert-question-success');
+
+        }, 300);
+    });
+</script>

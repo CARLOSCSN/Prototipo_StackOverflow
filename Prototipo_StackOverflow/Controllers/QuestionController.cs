@@ -21,8 +21,35 @@ namespace Prototipo_StackOverflow.Controllers
 
         public IActionResult Index()
         {
-            CreateTest();
+            //CreateTest();
             return View();
+        }
+
+        public IActionResult GetById(long id)
+        {
+            IQuestionRepository rep = new SqLiteQuestionRepository();
+            var result = rep.GetQuestion(id);
+
+            if (result != null)
+            {
+                IAnswerRepository repAnswer = new SqLiteAnswerRepository();
+                result.Answers = repAnswer.GetAnswersByQuestion(id);
+            }
+
+            return View("Detail", result);
+        }
+
+        [HttpPost]
+        public IActionResult CreateQuestion(QuestionModel model)
+        {
+            IQuestionRepository rep = new SqLiteQuestionRepository();
+            model.Date = DateTime.Now;
+
+            rep.SaveQuestion(model);
+
+            var action = "Index";
+            var controller = "Home";
+            return Json(new { redirectToUrl = Url.Action(action, controller) });
         }
 
         private bool CreateTest() {

@@ -1,0 +1,15 @@
+#toast-container > .toast {
+    width: 1200px; /* width: 100% */
+}
+#toast-container > .toast {
+    max-width: 1200px;
+    width: 90%;
+}
+#toast-container {
+    z-index: 10000000 !important;
+}
+
+#toast-container > div {
+    width: 500px !important;
+    opacity: 0.99 !important;
+}

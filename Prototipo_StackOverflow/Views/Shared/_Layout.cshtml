@@ -6,12 +6,21 @@
     <title>@ViewData["Title"] - StackOverflow</title>
     <link rel="stylesheet" href="~/lib/bootstrap/dist/css/bootstrap.min.css" />
     <link rel="stylesheet" href="~/css/site.css" />
+    <link href="~/lib/jquery-toastr/toastr.css" rel="stylesheet" type="text/css" />
+    <link href="~/lib/jquery-toastr/custom-css-toastr.css" rel="stylesheet" />
+
+    <script src="~/lib/jquery/dist/jquery.min.js"></script>
+    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
+    <script src="~/js/site.js" asp-append-version="true"></script>
+    <script src="~/lib/jquery-toastr/toastr.js"></script>
+
+    @RenderSection("Scripts", required: false)
 </head>
 <body>
     <header>
         <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-white border-bottom box-shadow mb-3"
              style="max-height:55px!important">
-            <div class="container">               
+            <div class="container">
                 <a class="navbar-brand" asp-area="" asp-controller="Home" asp-action="Index">
                     <img src="~/images/_img.jpg" style="max-width:200px!important" />
                 </a>
@@ -40,9 +49,29 @@
             <p class="mb0"><strong>Join Stack Overflow</strong> to learn, share knowledge, and build your career.</p>
         </div>
     </footer>
-    <script src="~/lib/jquery/dist/jquery.min.js"></script>
-    <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.min.js"></script>
-    <script src="~/js/site.js" asp-append-version="true"></script>
-    @RenderSection("Scripts", required: false)
+    <script>
+        $(document).ready(function () {
+
+            // Default config alerts in toast
+            // Create in  https://www.jqueryscript.net/demo/Highly-Customizable-jQuery-Toast-Message-Plugin-Toastr/
+            toastr.options = {
+                "closeButton": true,
+                "debug": false,
+                "newestOnTop": false,
+                "progressBar": true,
+                "positionClass": "toast-bottom-right",
+                "preventDuplicates": false,
+                "onclick": null,
+                "showDuration": "600",
+                "hideDuration": "2000",
+                "timeOut": "9000",
+                "extendedTimeOut": "2000",
+                "showEasing": "swing",
+                "hideEasing": "linear",
+                "showMethod": "fadeIn",
+                "hideMethod": "fadeOut"
+            }
+        });
+    </script>
 </body>
 </html>

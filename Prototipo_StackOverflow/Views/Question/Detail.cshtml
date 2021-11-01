@@ -1,0 +1,87 @@
+﻿@model QuestionModel
+
+@{
+    ViewData["Title"] = "Visualização da Pergunta";
+}
+
+<div class="row">
+    <a style="margin-left: -30px; cursor: pointer;" class="nav-link text-dark" onclick="window.history.go(-1); return false;"><b style="color:blue">Voltar</b></a>
+</div>
+@if (Model != null)
+{
+    <div class="row">
+        <div class="col-12">
+            <br />
+            <form>
+                <div class="row">
+                    <div class="col-4">
+                        <h4>Pergunta</h4>
+                    </div>
+                    <div class="col-8">
+                        <div class="text-right">
+                            <a class="btn btn-primary" asp-controller="Answer" asp-action="AnswerQuestion" asp-route-id="@Model.Id">Responder</a>
+                        </div>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label for="inputTitulo">Título</label>
+                    <input type="text" class="form-control" id="inputTitulo"
+                           placeholder="Qual sua pergunta de programação? Seja específico."
+                           value="@Model.Title"
+                           readonly>
+                </div>
+                <div class="form-group">
+                    <label for="inputCorpo">Corpo</label>
+                    @Html.TextAreaFor(m => m.Body, 10, 1, new { @class = "form-control", @readonly = "readonly" })
+                </div>
+                @if (Model?.Answers != null && Model.Answers.Any())
+                {
+                    <div class="row">
+                        @if (@Model.Answers.Count == 1)
+                        {
+                            <h4>1 Resposta</h4>
+                        }
+                        else
+                        {
+                            <h4>@Model.Answers.Count Respostas</h4>
+                        }
+                    </div>
+                    <br />
+                    <div class="form-group">
+                        @for (int i = 0; i < Model.Answers.Count; i++)
+                        {
+                            <div class="form-group">
+                                <label for="inputCorpoResposta">@Model.Answers[i].Title:</label>
+                                <textarea class="form-control" id="inputCorpoResposta" rows="5">@Model.Answers[i].Body</textarea>
+                            </div>
+                        }
+                    </div>
+                }
+                else
+                {
+                    <div class="row">
+                        <h4>Essa pergunta ainda não contem nenhuma resposta</h4>
+                    </div>
+                }
+            </form>
+        </div>
+    </div>
+}
+else
+{
+    <br /><br /><br />
+    <h5 class="text-center">Pergunta não encontrada.</h5>
+}
+
+<script>
+    $(document).ready(function () {
+        setTimeout(function () {
+            let storageSuccessAlert = localStorage.getItem('alert-answer-success');
+            if (storageSuccessAlert != undefined && storageSuccessAlert != null && storageSuccessAlert != '') {
+                toastr["success"](storageSuccessAlert, "Sucesso");
+            }
+            localStorage.removeItem('alert-answer-success');
+
+        }, 300);
+    });
+</script>

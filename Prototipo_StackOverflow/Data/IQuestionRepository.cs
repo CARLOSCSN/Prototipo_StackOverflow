@@ -9,6 +9,10 @@ namespace Prototipo_StackOverflow.Data
     public interface IQuestionRepository
     {
         QuestionModel GetQuestion(long id);
+        List<QuestionModel> GetListQuestion();
+
         void SaveQuestion(QuestionModel customer);
+
+        void CreateDatabase();
     }
 }

@@ -1,5 +1,6 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.Extensions.Logging;
+using Prototipo_StackOverflow.Data;
 using Prototipo_StackOverflow.Models;
 using System;
 using System.Collections.Generic;
@@ -20,7 +21,10 @@ namespace Prototipo_StackOverflow.Controllers
 
         public IActionResult Index()
         {
-            return View();
+            IQuestionRepository questionRepo = new SqLiteQuestionRepository();
+            var listQuestions = questionRepo.GetListQuestion();
+
+            return View(listQuestions);
         }
 
         public IActionResult Privacy()
