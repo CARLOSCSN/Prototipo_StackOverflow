@@ -45,6 +45,21 @@ namespace Prototipo_StackOverflow.Controllers
             return Json(new { redirectToUrl = Url.Action(action, controller) });
         }
 
+        public bool CreateAnswersTest(QuestionModel model)
+        {
+            if (model.Answers == null)
+                return false;
+
+            IAnswerRepository rep = new SqLiteAnswerRepository();
+
+            foreach (var item in model.Answers)
+            {
+                rep.SaveAnswer(item);
+            }
+
+            return true;
+        }
+
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
         public IActionResult Error()
         {

@@ -52,20 +52,21 @@ namespace Prototipo_StackOverflow.Controllers
             return Json(new { redirectToUrl = Url.Action(action, controller) });
         }
 
-        private bool CreateTest() {
+        public QuestionModel CreateQuestionTest() {
 
             IQuestionRepository rep = new SqLiteQuestionRepository();
+            Random rnd = new Random();
             var question = new QuestionModel
             {
-                Title = "Error 404",
-                Body = "Error 404 in API after submit form",
+                Title = "gerada por Teste de FACADE code: " + rnd.Next(),
+                Body = "O Lorem Ipsum é um texto modelo da indústria tipográfica e de impressão. O Lorem Ipsum tem vindo a ser o texto padrão usado por estas indústrias desde o ano de 1500...",
                 Date = DateTime.Now
             };
 
             rep.SaveQuestion(question);
             var retrievedQuestion = rep.GetQuestion(question.Id);
 
-            return true;
+            return retrievedQuestion;
         }
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

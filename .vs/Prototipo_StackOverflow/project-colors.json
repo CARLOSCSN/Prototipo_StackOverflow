@@ -5,7 +5,12 @@
       "ProjectGuid": "cdef5864-4478-424e-ad94-0808aa13209e",
       "DisplayName": "Prototipo_StackOverflow",
       "ColorIndex": 0
+    },
+    "57f64b8b-8327-4b4e-af41-4535196fb287": {
+      "ProjectGuid": "57f64b8b-8327-4b4e-af41-4535196fb287",
+      "DisplayName": "Prototipo_StackOverflowTests",
+      "ColorIndex": 1
     }
   },
-  "NextColorIndex": 1
+  "NextColorIndex": 2
 }
